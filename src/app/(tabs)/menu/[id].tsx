@@ -1,17 +1,82 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
 import { Stack, useLocalSearchParams } from "expo-router";
+import { products } from "../../../data/products";
+import { defaultPizzaImage } from "@/src/components/ProductListItem";
+import Button from "@/src/components/Button";
+
+const sizes = ["S", "M", "L", "XL"];
 
 const ProductDetails = () => {
+  const [activeSize, setActiveSize] = useState("");
   const { id } = useLocalSearchParams();
+
+  const product = products.find((p) => p.id.toString() === id);
+  if (!product) {
+    return <Text>Product Not Found</Text>;
+  }
+
+  const addToChart = () => {
+    console.warn("Added to Chart Size:", activeSize);
+  };
+
   return (
-    <View>
-      <Stack.Screen options={{ title: "Details" }} />
-      <Text>ProductDetails {id}</Text>
+    <View style={styles.container}>
+      <Stack.Screen options={{ title: product.name }} />
+
+      <Image
+        source={{ uri: product.image || defaultPizzaImage }}
+        style={styles.image}
+      />
+
+      <Text>Select Size</Text>
+
+      <View style={styles.sizes}>
+        {sizes.map((size) => (
+          <Pressable
+            onPress={() => setActiveSize(size)}
+            style={[
+              styles.size,
+              { backgroundColor: activeSize == size ? "gainsboro" : "white" },
+            ]}
+          >
+            <Text
+              style={[
+                styles.sizeText,
+                { color: activeSize == size ? "black" : "gainsboro" },
+              ]}
+              key={size}
+            >
+              {size}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+
+      <Text style={styles.price}>${product.price}</Text>
+      <Button text="Add to Chart" onPress={addToChart} />
     </View>
   );
 };
 
 export default ProductDetails;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: { backgroundColor: "#fff", flex: 1 },
+  image: { width: "100%", aspectRatio: 1 },
+  price: { fontSize: 18, fontWeight: "bold", marginTop: "auto" },
+  sizes: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginVertical: 10,
+  },
+  size: {
+    backgroundColor: "gainsboro",
+    width: 50,
+    borderRadius: 25,
+    aspectRatio: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  sizeText: { fontSize: 20, fontWeight: "500" },
+});
