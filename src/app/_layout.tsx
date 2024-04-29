@@ -9,6 +9,7 @@ import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useColorScheme } from "../components/useColorScheme";
+import ChartProvider from "../Providers/CartProvider";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -45,17 +46,19 @@ export default function RootLayout() {
   }
 
   return <RootLayoutNav />;
-}
+} 
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="chart" options={{ presentation: "modal" }} />
-      </Stack>
+      <ChartProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="chart" options={{ presentation: "modal" }} />
+        </Stack>
+      </ChartProvider >
     </ThemeProvider>
   );
 }

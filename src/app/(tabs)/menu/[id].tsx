@@ -1,23 +1,26 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { Stack, router, useLocalSearchParams } from "expo-router";
 import { products } from "../../../data/products";
 import { defaultPizzaImage } from "@/src/components/ProductListItem";
 import Button from "@/src/components/Button";
+import { useCart } from "@/src/Providers/CartProvider";
+import { PizzaSize } from "@/src/types";
 
-const sizes = ["S", "M", "L", "XL"];
+const sizes: PizzaSize[] = ["S", "M", "L", "XL"];
 
 const ProductDetails = () => {
-  const [activeSize, setActiveSize] = useState("");
+  const [activeSize, setActiveSize] = useState<PizzaSize>("S");
   const { id } = useLocalSearchParams();
-
+  const { addItem } = useCart();
   const product = products.find((p) => p.id.toString() === id);
   if (!product) {
     return <Text>Product Not Found</Text>;
   }
 
   const addToChart = () => {
-    console.warn("Added to Chart Size:", activeSize);
+    addItem(product, activeSize);
+    router.push('/chart')
   };
 
   return (
