@@ -20,7 +20,7 @@ const ProductDetails = () => {
 
   const addToChart = () => {
     addItem(product, activeSize);
-    router.push('/chart')
+    router.push("/chart");
   };
 
   return (
@@ -37,6 +37,7 @@ const ProductDetails = () => {
       <View style={styles.sizes}>
         {sizes.map((size) => (
           <Pressable
+            key={size}
             onPress={() => setActiveSize(size)}
             style={[
               styles.size,

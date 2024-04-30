@@ -46,7 +46,7 @@ export default function RootLayout() {
   }
 
   return <RootLayoutNav />;
-} 
+}
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
@@ -55,10 +55,11 @@ function RootLayoutNav() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <ChartProvider>
         <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="(admin)" options={{ headerShown: false }} />
+          <Stack.Screen name="(user)" options={{ headerShown: false }} />
           <Stack.Screen name="chart" options={{ presentation: "modal" }} />
         </Stack>
-      </ChartProvider >
+      </ChartProvider>
     </ThemeProvider>
   );
 }
