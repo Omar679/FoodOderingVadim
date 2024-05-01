@@ -27,9 +27,7 @@ const ProductDetails = () => {
 
   return (
     <View style={styles.container}>
-
-<Stack.Screen
-  
+      <Stack.Screen
         options={{
           title: "Menu",
           headerRight: () => (
@@ -48,14 +46,13 @@ const ProductDetails = () => {
           ),
         }}
       />
-       <Stack.Screen options={{ title: product.name }} />
+      <Stack.Screen options={{ title: product.name }} />
 
       <Image
         source={{ uri: product.image || defaultPizzaImage }}
         style={styles.image}
       />
 
-   
       <Text style={styles.price}>{product.name}</Text>
       <Text style={styles.price}>${product.price}</Text>
       {/* <Button text="Add to Chart" onPress={addToChart} /> */}
@@ -68,7 +65,7 @@ export default ProductDetails;
 const styles = StyleSheet.create({
   container: { backgroundColor: "#fff", flex: 1 },
   image: { width: "100%", aspectRatio: 1 },
-  price: { fontSize: 18, fontWeight: "bold",},
+  price: { fontSize: 18, fontWeight: "bold" },
   sizes: {
     flexDirection: "row",
     justifyContent: "space-around",
