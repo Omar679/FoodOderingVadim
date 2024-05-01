@@ -7,7 +7,7 @@ const Orders = () => {
   return (
     <View>
       <FlatList
-      contentContainerStyle ={{gap:10, padding:10}}
+        contentContainerStyle={{ gap: 10, padding: 10 }}
         data={orders}
         renderItem={({ item }) => (
           <View>
